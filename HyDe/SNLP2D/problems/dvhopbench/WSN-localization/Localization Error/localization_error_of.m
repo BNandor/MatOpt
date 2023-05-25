@@ -1,4 +1,4 @@
-function [Localization_error,Unresolve_num]=calculate_localization_error(comm_r)
+function [Localization_error,Unresolve_num]=localization_error_of(comm_r,title)
 % ������λ�㷨�Ķ�λ����ͼ
 % ê�ڵ㲻���ڶ�λ����,�ú�ɫ*��ʾ,
 % δ֪�ڵ��е��ܱ���λ(��ɫO��ʾ��Щ�ڵ��Ĺ���λ��,��ɫ-��ʾ��Щ�ڵ��Ĺ���λ�õ���ʵλ�õ�����)
@@ -7,7 +7,7 @@ function [Localization_error,Unresolve_num]=calculate_localization_error(comm_r)
 % Unresolved_num:��������Щ������������Ϊ�ھӽ��ٲ��ܱ���λ����Щ������Ŀ
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     load result.mat;
-    figure;
+    figure('name',title);
     hold on;
     box on;
     plot(all_nodes.true(1:all_nodes.anchors_n,1),all_nodes.true(1:all_nodes.anchors_n,2),'r*');%the anchors

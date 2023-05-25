@@ -510,9 +510,9 @@ namespace GD {
                 printf("%f,", sharedContext.xCurrent[j]);
             }
             printf("%f\n", sharedContext.xCurrent[X_DIM - 1]);
-            printf("\nthreads:%d", blockDim.x);
-            printf("\niterations:%d", it);
-            printf("\nfevaluations: %d\n", localContext.fEvaluations);
+//            printf("\nthreads:%d", blockDim.x);
+//            printf("\niterations:%d", it);
+//            printf("\nfevaluations: %d\n", localContext.fEvaluations);
         }
 
 #endif
