@@ -1,23 +1,22 @@
 function MDS_MAP(dist_available)
 % MDS_MAP Alg. Zenzon Don  5.12.2010
-% dist_available:½Úµã¼äµÄ¾àÀëÊÇ·ñ¿ÉÒÔ»ñµÃ  true-available  false-unavailable
+% dist_available:ï¿½Úµï¿½ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ô»ï¿½ï¿½ï¿½  true-available  false-unavailable
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     load '../Deploy Nodes/coordinates.mat';
     load '../Topology Of WSN/neighbor.mat'; 
     if all_nodes.anchors_n<3
-        disp('Ãª½ÚµãÉÙÓÚ3¸ö,MDS_MAPËã·¨ÎÞ·¨Ö´ÐÐ');
+        disp('Ãªï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½,MDS_MAPï¿½ã·¨ï¿½Þ·ï¿½Ö´ï¿½ï¿½');
         return;
     end
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    %shortest_path_hop:ÒÔÌøÊý¼ÆµÄÁÚ½Ó¾ØÕó
-    %shortest_path_dist:ÒÔ¾àÀë¼ÆµÄÁÚ½Ó¾ØÕó
-    %shortest_path:µ±¾àÀë¿É²âÊ±£¬µÈÓÚshortest_path_dist;·ñÔòÎªshortest_path_hop
+    %shortest_path_hop:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½Ú½Ó¾ï¿½ï¿½ï¿½
+    %shortest_path_dist:ï¿½Ô¾ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½Ú½Ó¾ï¿½ï¿½ï¿½
+    %shortest_path:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É²ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½shortest_path_dist;ï¿½ï¿½ï¿½ï¿½Îªshortest_path_hop
     shortest_path_hop=neighbor_matrix;
     shortest_path_hop=shortest_path_hop+eye(all_nodes.nodes_n)*2;
     shortest_path_hop(shortest_path_hop==0)=Inf;
     shortest_path_hop(shortest_path_hop==2)=0;
-    directory=cd;
-    cd(['../Topology Of WSN/Transmission Model/',model]);
+    directory=cd(['../Topology Of WSN/Transmission Model/',model]);
     shortest_path_dist=ones(size(neighbor_rss));
     try
         shortest_path_dist(neighbor_matrix==1)=rss2dist(neighbor_rss(neighbor_matrix==1),1);
@@ -33,7 +32,7 @@ function MDS_MAP(dist_available)
         shortest_path=shortest_path_hop;
     end
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    % Ö´ÐÐFloydËã·¨£¬Ëã³öÈÎÒâÁ½¸öµãµÄ×î¶Ì¾àÀë(¸ù¾Ýdist_available£¬ÒÔÌøÊý¼Æ»òÕßÒÔ¾àÀë¼Æ)
+    % Ö´ï¿½ï¿½Floydï¿½ã·¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½dist_availableï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ»ï¿½ï¿½ï¿½ï¿½Ô¾ï¿½ï¿½ï¿½ï¿½ï¿½)
     for k=1:all_nodes.nodes_n
         for i=1:all_nodes.nodes_n
             for j=1:all_nodes.nodes_n
@@ -44,11 +43,11 @@ function MDS_MAP(dist_available)
         end
     end
     if length(find(shortest_path==Inf))~=0
-        disp('ÍøÂç²»Á¬Í¨...ÐèÒª»®·ÖÁ¬Í¨×ÓÍ¼...ÕâÀïÃ»ÓÐ¿¼ÂÇÕâÖÖÇé¿ö');
+        disp('ï¿½ï¿½ï¿½ç²»ï¿½ï¿½Í¨...ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½Í¼...ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
         return;
     end
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    % ¶Ô×î¶Ì¾àÀë¾ØÕóshortest_pathÖ´ÐÐMDS·½·¨
+    % ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½shortest_pathÖ´ï¿½ï¿½MDSï¿½ï¿½ï¿½ï¿½
     J=eye(all_nodes.nodes_n)-ones(all_nodes.nodes_n)/all_nodes.nodes_n;
     H=-0.5*J*shortest_path.^2*J;
     [V S T]=svd(H);
@@ -57,12 +56,12 @@ function MDS_MAP(dist_available)
     save maps_and_all_nodes.mat relative_map all_nodes;    
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     warning off;
-    disp('Ê±¼ä¿ÉÄÜºÜ³¤£¬¿ÉÒÔÏÈÈ¥ÉÏ¸ö²ÞËù');
-    disp('Èç¹û»ØÀ´»¹ÔÚÅÜ£¬ÄÇÃ´¿ÉÒÔµ÷ÏÂ²ÎÊý£¬°ÑTolXºÍTolFunºóÃæµÄ²ÎÊýµ÷´óe.g0.01,°Ñ MaxIterºÍMaxFunEvals¸Ä³É10000°É');
+    disp('Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ÜºÜ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½Ï¸ï¿½ï¿½ï¿½ï¿½ï¿½');
+    disp('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½Ôµï¿½ï¿½Â²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½TolXï¿½ï¿½TolFunï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½e.g0.01,ï¿½ï¿½ MaxIterï¿½ï¿½MaxFunEvalsï¿½Ä³ï¿½10000ï¿½ï¿½');
     [q r]=fsolve('relative_to_absolute',[1,1,0,0,all_nodes.square_L/2,all_nodes.square_L/2],optimset('Display','off','TolX',0.001,'TolFun',0.001,'MaxIter',inf,'MaxFunEvals',inf));
     q
     absolute_map=relative_map*[q(1)*cos(q(3)) q(2)*sin(q(4));-q(1)*sin(q(3)) q(2)*cos(q(4))]+repmat([q(5) q(6)],all_nodes.nodes_n,1);
-    save maps_and_all_nodes.mat absolute_map -APPEND;
+    save maps_and_all_nodes.mat absolute_map -append;
     all_nodes.estimated(all_nodes.anchors_n+1:all_nodes.nodes_n,:)=absolute_map(all_nodes.anchors_n+1:all_nodes.nodes_n,:);
     all_nodes.anc_flag(all_nodes.anchors_n+1:all_nodes.nodes_n)=2;
     save '../Localization Error/result.mat' all_nodes comm_r;
