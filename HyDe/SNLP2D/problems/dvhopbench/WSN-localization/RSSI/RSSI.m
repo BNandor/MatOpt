@@ -1,16 +1,16 @@
 function RSSI()
-% Î´Öª½ÚµãÀûÓÃÁÚ¾ÓÃª½Úµã½øÐÐ¶¨Î»£¬Ã»ÓÐÁÚ¾ÓÃª½ÚµãµÄÎ´Öª½ÚµãÎÞ·¨¶¨Î»
-% ¸ù¾Ý½ÓÊÕÐÅºÅÇ¿¶È×ª»¯Îª¾àÀë¡£¹æÔò´«²¥Ä£ÐÍÏÂµÃµ½µÄ¾àÀë¸úÊµ¼Ê¾àÀëÃ»ÓÐÎó²î
-% ²»¹æÔòÍ¨ÐÅÄ£ÐÍÏÂ£¬¹æÔò´«²¥Ä£ÐÍÏÂµÃµ½µÄ¾àÀë¸úÊµ¼Ê¾àÀë´æÔÚÎó²î
+% Î´Öªï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¾ï¿½Ãªï¿½Úµï¿½ï¿½ï¿½ï¿½Ð¶ï¿½Î»ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ú¾ï¿½Ãªï¿½Úµï¿½ï¿½ï¿½Î´Öªï¿½Úµï¿½ï¿½Þ·ï¿½ï¿½ï¿½Î»
+% ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½ï¿½Åºï¿½Ç¿ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ë¡£ï¿½ï¿½ï¿½ò´«²ï¿½Ä£ï¿½ï¿½ï¿½ÂµÃµï¿½ï¿½Ä¾ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Ê¾ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+% ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½Ä£ï¿½ï¿½ï¿½Â£ï¿½ï¿½ï¿½ï¿½ò´«²ï¿½Ä£ï¿½ï¿½ï¿½ÂµÃµï¿½ï¿½Ä¾ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     load '../Deploy Nodes/coordinates.mat';
     load '../Topology Of WSN/neighbor.mat';    
-    directory=cd;
-    cd '../Topology Of WSN/Transmission Model/';    
+    directory=cd('../Topology Of WSN/Transmission Model/');
+    disp(directory)
     cd(model);
     unknown_node_index=all_nodes.anchors_n+1:all_nodes.nodes_n;
     for i=unknown_node_index
-        neighboring_anchor_index=intersect(find(neighbor_matrix(i,:)==1),find(all_nodes.anc_flag==1));%Ö»ÀûÓÃÁÚ¾ÓÃª½Úµã½øÐÐ¶¨Î»
+        neighboring_anchor_index=intersect(find(neighbor_matrix(i,:)==1),find(all_nodes.anc_flag==1));%Ö»ï¿½ï¿½ï¿½ï¿½ï¿½Ú¾ï¿½Ãªï¿½Úµï¿½ï¿½ï¿½ï¿½Ð¶ï¿½Î»
         neighboring_anchor_n=length(neighboring_anchor_index);
         if neighboring_anchor_n>=3
             try
@@ -19,7 +19,7 @@ function RSSI()
                 dist=rss2dist(neighbor_rss(neighboring_anchor_index,i));
             end
             neighboring_anchor_location=all_nodes.estimated(neighboring_anchor_index,:);
-            %~~~~~~~~~~~~~~~~~~~~~~~~~Èý±ß²âÁ¿·¨£¨×îÐ¡¶þ³Ë·¨£©
+            %~~~~~~~~~~~~~~~~~~~~~~~~~ï¿½ï¿½ï¿½ß²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½Ë·ï¿½ï¿½ï¿½
             A=2*(neighboring_anchor_location(1:neighboring_anchor_n-1,:)-repmat(neighboring_anchor_location(neighboring_anchor_n,:),neighboring_anchor_n-1,1));
             neighboring_anchor_location_square=transpose(sum(transpose(neighboring_anchor_location.^2)));
             dist_square=dist.^2;
