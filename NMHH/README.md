@@ -3,6 +3,7 @@
 <br>
 
 ##  NMHH: Nested Markov Chain Hyper Heuristic
+
 A hyperheuristic framework for the continuous domain.
 
 ###  Requirements:
@@ -23,5 +24,5 @@ pip3 install -r requirements.txt
 ```shell
 ./startexp.sh
 ```
-- the experiment results can be found under ```hhanalyis/logs```
+- the experiment results can be found under ```hhanalysis/logs```
 - the results are cached, these need to be deleted for the experiments to be performed again
