@@ -23,14 +23,6 @@ pip3 install -r requirements.txt
 
 - A CUDA enabled GPU supporting at least ```sm_arch=60``` and the CUDA compiler (`nvcc >= 11.4`) from the [cuda toolkit](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html) is required.
 
-
-### Optimize benchmark functions with:
-
-```shell
-./startexp.sh
-```
-- the experiment results will be placed in the [logs](hhanalysis/logs/SA-NMHH/newExperiment/) 
-
 ## Benchmarks:
 
 The method was compared with [CUSTOMHyS](https://github.com/jcrvz/customhys) and six metaheuristics from [mealpy](https://mealpy.readthedocs.io/en/latest/) on six benchmark problems: 
@@ -43,6 +35,31 @@ The method was compared with [CUSTOMHyS](https://github.com/jcrvz/customhys) and
 - Styblinski Tang $f(x)=\frac{1}{2}\sum \limits_{i=1}^{d}x_{i}^4 -16x_{i}^2+5x_{i}$
 - Trid $f(x)=\sum \limits_{i=1}^{d}(x_{i}-1)^2+\sum \limits_{i=2}^{d}(x_i x_{i-1})$
 
+
+
+
+### Optimize benchmark functions with:
+
+Start NMHH benchmarks
+
+```shell
+./NMHHExperiment.sh
+```
+- the NMHH experiment results will be placed in the [NMHH logs](hhanalysis/logs/SA-NMHH/newExperiment/) 
+
+Start CUSTOMHyS benchmarks
+
+```shell
+./CUSTOMHySExperiment.sh
+```
+- the CUSTOMHyS experiment results will be placed in the [CUSTOMHyS logs](hhanalysis/logs/CustomHYSPerf/newExperiment/) 
+
+Start mealpy benchmarks
+
+```shell
+./mealpyExperiment.sh
+```
+- the mealpy experiment results will be placed in the [mealpy logs](hhanalysis/logs/mealpyPerf/newExperiment/) 
 
 
 #### Results:

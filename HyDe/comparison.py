@@ -106,33 +106,34 @@ hyDeConfig={
 }
 
 setupProblem(problemConfig) # -> coordinates.mat, neighbor.mat
-# solveWith("cd 'DV-hop';DV_hop; cd ..") # -> result.mat
-# dvHopErr=currentError(problemConfig,'DVHop')# result.mat -> error
-# solveWith("cd APIT;APIT(0.1*comm_r); cd ..") # -> result.mat
-# apiterr=currentError(problemConfig,'APIT')# result.mat -> error
-# solveWith("cd Amorphous;Amorphous; cd ..") # -> result.mat
-# amorphous=currentError(problemConfig,'Amorphous')# result.mat -> error
+solveWith("cd 'DV-hop';DV_hop; cd ..") # -> result.mat
+dvHopErr=currentError(problemConfig,'DVHop')# result.mat -> error
+solveWith("cd APIT;APIT(0.1*comm_r); cd ..") # -> result.mat
+apiterr=currentError(problemConfig,'APIT')# result.mat -> error
+solveWith("cd Amorphous;Amorphous; cd ..") # -> result.mat
+amorphous=currentError(problemConfig,'Amorphous')# result.mat -> error
 solveWith("dist_available=true;cd 'MDS-MAP';MDS_MAP(dist_available);cd ..") # -> result.mat
 mdsMAP=currentError(problemConfig,'MDS-MAP')# result.mat -> error
 
 # solveWith("cd 'Grid Scan';Grid_Scan(0.1*comm_r); cd ..") # -> result.mat
 # gridScan=currentError(problemConfig,'Grid Scan')# result.mat -> error
 
-# solveWith("cd 'Bounding Box';Bounding_Box; cd ..") # -> result.mat
-# boundingBox=currentError(problemConfig,'Bounding box')# result.mat -> error
+solveWith("cd 'Bounding Box';Bounding_Box; cd ..") # -> result.mat
+boundingBox=currentError(problemConfig,'Bounding box')# result.mat -> error
+
 # RSSI has information about power also
-solveWith("cd RSSI;RSSI; cd ..") # -> result.mat
-rssiError=currentError(problemConfig,'RSSI')# result.mat -> error
+# solveWith("cd RSSI;RSSI; cd ..") # -> result.mat
+# rssiError=currentError(problemConfig,'RSSI')# result.mat -> error
 
 exportToSNLP() # coordinates.mat, neighbor.mat, result.mat -> exportedDVHop.snlp,exportedDVHop.snlpa
 runHybirdDESolver(problemConfig,hyDeConfig) # exportedDVHop.snlp,exportedDVHop.snlpa -> finalModelLBFGS.csv, finalModelGD.csv
-# print(f'DVHop error: {dvHopErr}')
-# print(f'Apit error: {apiterr}')
-# print(f'Amorphous error: {amorphous}')
+print(f'DVHop error: {dvHopErr}')
+print(f'Apit error: {apiterr}')
+print(f'Amorphous error: {amorphous}')
 print(f'MDS-MAP error: {mdsMAP}')
 # print(f'GridScan error: {gridScan}')
-# print(f'BoundingBox error: {boundingBox}')
-print(f'rssiError error: {rssiError}')
+print(f'BoundingBox error: {boundingBox}')
+# print(f'rssiError error: {rssiError}')
 
 evaluateLocalizationError("finalModelGD.csv")# finalModelGD.csv -> result.mat
 print(f'HybridDE GD error: {currentError(problemConfig,"H-DE-GD")}')# result.mat -> error
