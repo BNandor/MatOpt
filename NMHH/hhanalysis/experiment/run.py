@@ -176,12 +176,12 @@ def runAllExperiments():
 def runNMHH2():
     params={}
     params["problems"]=zipWithProperty([
-              ("PROBLEM_ROSENBROCK","hhanalysis/logs/SA-NMHH/GA_DE_GD_LBFGS/rosenbrock.json"),
-              ("PROBLEM_RASTRIGIN","hhanalysis/logs/SA-NMHH/GA_DE_GD_LBFGS/rastrigin.json"),
-              ("PROBLEM_STYBLINSKITANG","hhanalysis/logs/SA-NMHH/GA_DE_GD_LBFGS/styblinskitang.json"),
-              ("PROBLEM_TRID","hhanalysis/logs/SA-NMHH/GA_DE_GD_LBFGS/trid.json"),
-              ("PROBLEM_SCHWEFEL223","hhanalysis/logs/SA-NMHH/GA_DE_GD_LBFGS/schwefel223.json"),
-              ("PROBLEM_QING","hhanalysis/logs/SA-NMHH/GA_DE_GD_LBFGS/qing.json")],"problems")
+              ("PROBLEM_ROSENBROCK","hhanalysis/logs/SA-NMHH/newExperiment/rosenbrock.json"),
+              ("PROBLEM_RASTRIGIN","hhanalysis/logs/SA-NMHH/newExperiment/rastrigin.json"),
+              ("PROBLEM_STYBLINSKITANG","hhanalysis/logs/SA-NMHH/newExperiment/styblinskitang.json"),
+              ("PROBLEM_TRID","hhanalysis/logs/SA-NMHH/newExperiment/trid.json"),
+              ("PROBLEM_SCHWEFEL223","hhanalysis/logs/SA-NMHH/newExperiment/schwefel223.json"),
+              ("PROBLEM_QING","hhanalysis/logs/SA-NMHH/newExperiment/qing.json")],"problems")
     
     params["baselevelIterations"]=zipWithProperty([100],"baselevelIterations")
     params["populationSize"]=zipWithProperty([30],"populationSize")
