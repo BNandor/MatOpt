@@ -50,11 +50,14 @@ Start NMHH benchmarks
 - the NMHH experiment results will be placed in the [NMHH logs](hhanalysis/logs/SA-NMHH/newExperiment/) 
 
 #### Results:
+Benchmark results
+ - [NMHH benchmark results](hhanalysis/logs/SA-NMHH/GA_DE_GD_LBFGS/) 
+ - [CUSTOMHyS benchmark results](hhanalysis/logs/CustomHYSPerf/)
+ - [mealpy benchmark results](hhanalysis/logs/mealpyPerf)
 
- - [NMHH results](hhanalysis/logs/SA-NMHH/GA_DE_GD_LBFGS/) 
- - [CUSTOMHyS results](hhanalysis/logs/CustomHYSPerf/)
- - [mealpy results](hhanalysis/logs/mealpyPerf)
-
+Computational time results
+ - [NMHH computational time results](hhanalysis/logs/SA-NMHH/GA_DE_GD_LBFGS/comptime) 
+ - [CUSTOMHyS computational time results](hhanalysis/logs/CustomHYSPerf/comptime)
 #### Summary:
 The Median + IQR values of the performance samples are compared. The best results are highlighted in bold.
 | problem | dimension | NMHH                 | CUSTOMHyS            | SMA                 | AEO                 | BRO                 | ArchOA      | PSO         | CRO         |
