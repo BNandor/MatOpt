@@ -7,7 +7,7 @@
 ![logo](img/Logo.png)
 <br>
 
-##  NMHH: Nested Markov Chain Hyper Heuristic
+##  NMHH: Nested Markov Chain Hyper Heuristic <br>[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.10201026.svg)](http://dx.doi.org/10.5281/zenodo.10201026)
 
 A hyperheuristic framework for the continuous domain.
 
