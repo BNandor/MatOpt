@@ -110,6 +110,11 @@ def groupByExperimentsAndAggregate(recordsWithMetrics,explanatoryColumns,respons
 def mergeOn(recordsAndMetrics,aggregations,joinColumns):
     return pd.merge(aggregations, recordsAndMetrics, on=joinColumns,how='left').dropna(axis='columns')
 
+def checkAggregationCorrectness(aggregations):
+    rows_with_nan = aggregations[aggregations.isna().any(axis=1)]
+    if rows_with_nan.shape[0]:
+        print("Incorrect experiments:")
+        print(rows_with_nan)
 
 def createTestGroupView(recordsPath,getMetricsAndId,mapRecordToExperiment,explanatoryColumns,responseColumns,metricsAggregation,enrichAndFilter,enrichWithMetrics=True):
     _,indexColumn=getMetricsAndId
@@ -126,6 +131,7 @@ def createTestGroupView(recordsPath,getMetricsAndId,mapRecordToExperiment,explan
     else:
         recordsWithMetrics=records
     experimentColumns,aggregations=groupByExperimentsAndAggregate(recordsWithMetrics,explanatoryColumns,responseColumns,metricsAggregation)
+    checkAggregationCorrectness(aggregations)
     testGroupDF=enrichAndFilter(recordsWithMetrics,aggregations,experimentColumns)
     return testGroupDF
 
@@ -139,6 +145,7 @@ def createComparisonDF(controlDF, testDF, independetColumns):
     return pd.merge(controlDF, testDF, on=independetColumns, how="inner")
 
 def printMinResultEachRow(df,experimentCols,columns):
+    print("Win statistics:")
     minStatistic={}
     for column in columns:
         minStatistic[column]=0.0
@@ -257,7 +264,49 @@ def printMinAvgStdHighlighWilcoxRanksums(df, optimizers):
     print("\\end{tabular}}")
     print("\\end{table}")
 
+def printMinMedIQRStdHighlighWilcoxRanksums(df, optimizers):
+    print("\\begin{table}[b]")
+    print("\\resizebox{\columnwidth}{!}{")
+    print("\\begin{tabular}{lc" + "".join(["l"]*len(optimizers)) + "}")
+    print("\\hline")
+    print("problem  & dimension & " + " & ".join([f"{opt}" for opt in optimizers]) + " \\\\")
+    print("\\hline")
+    
+    current_problem = None
+    for index, row in df.iterrows():
+        wilcoxRanksum = pickle.loads(json.loads(row['wilcoxRanksums']).encode('latin-1'))
+        wilcoxRanksumIndexOrder = json.loads(row['wilcoxRanksumsIndexOrder'])
+        bestOptimizers=set(optimizers)
+        for i in range(len(wilcoxRanksumIndexOrder)):
+            for j in range(len(wilcoxRanksumIndexOrder)):
+                if wilcoxRanksum[i][j]==0:
+                    if wilcoxRanksumIndexOrder[j] in bestOptimizers:
+                        bestOptimizers.remove(wilcoxRanksumIndexOrder[j])
+        
+        if row["problemName"] != current_problem:
+            if current_problem is not None:
+                print("\\hline") 
+            print(f"\\multirow{{{len(df[df['problemName'] == row['problemName']])}}}{{*}}{{{row['problemName'].replace('PROBLEM_','').capitalize()}}}")
+            current_problem = row["problemName"]
+        # find the minimal value among optimizers
+        min_value = min(row[opt] for opt in optimizers)
+        # create a list of formatted values with bold for the minimal one
+        values_str_list = []
+        for opt in optimizers:
+            value_str = f"{row[opt]:.4e}"
+            if opt in bestOptimizers:
+                value_str = f"\\textbf{{{value_str}}}" # add bold command
+            values_str_list.append(value_str)
+        # join the list with &
+        values_str = " & ".join(values_str_list)
+        print(f"&{int(row['modelSize'])}& {values_str} \\\\")
+        
+    print("\\hline")
+    print("\\end{tabular}}")
+    print("\\end{table}")
+
 def printStatisticsOfWilcoxRanksums(df, optimizers):
+    print("Wilcoxon win statistics")
     bestStatistics={}
     for opt in optimizers:
         bestStatistics[opt]=0.0
@@ -275,6 +324,41 @@ def printStatisticsOfWilcoxRanksums(df, optimizers):
     for optimizer,wins in sorted(bestStatistics.items(), key=lambda x: -x[1]):
         print(f" {wins/df.shape[0]:.3f} - {optimizer}")
 
+def printScoreOfWilcoxRanksums(df, optimizers):
+    print("Wilcoxon win statistics")
+    score={}
+    for opt in optimizers:
+        score[opt]=0.0
+    for index, row in df.iterrows():
+        wilcoxRanksum = pickle.loads(json.loads(row['wilcoxRanksums']).encode('latin-1'))
+        wilcoxRanksumIndexOrder = json.loads(row['wilcoxRanksumsIndexOrder'])
+        bestOptimizers=set(optimizers)
+        for i in range(len(wilcoxRanksumIndexOrder)):
+            for j in range(len(wilcoxRanksumIndexOrder)):
+                if wilcoxRanksum[i][j]==0:
+                    score[wilcoxRanksumIndexOrder[i]]+=1
+    for optimizer,wins in sorted(score.items(), key=lambda x: -x[1]):
+        print(f" {wins} - {optimizer}")
+
+def printScoreOfWilcoxRanksumsPerDim(df, optimizers):
+    print("Wilcoxon win statistics")
+    scoresPerDim={}
+    grouped=df.groupby(['modelSize'])
+    for (modelSize,groupIndex) in grouped:
+        scoresPerDim[modelSize]={}
+        for opt in optimizers:
+
+            scoresPerDim[modelSize][opt]=0.0
+        for index, row in groupIndex.iterrows():
+            wilcoxRanksum = pickle.loads(json.loads(row['wilcoxRanksums']).encode('latin-1'))
+            wilcoxRanksumIndexOrder = json.loads(row['wilcoxRanksumsIndexOrder'])
+            for i in range(len(wilcoxRanksumIndexOrder)):
+                for j in range(len(wilcoxRanksumIndexOrder)):
+                    if wilcoxRanksum[i][j]==0:
+                        scoresPerDim[modelSize][wilcoxRanksumIndexOrder[i]]+=1
+        for optimizer,wins in sorted(scoresPerDim[modelSize].items(), key=lambda x: -x[1]):
+            print(f"Dim: {modelSize}: {wins} - {optimizer}")
+    return scoresPerDim
 def calculateWilcoxRanksumStatisticsForEachDimension(df, optimizers):
     statisticsforDimension={}
     grouped=df.groupby(['modelSize'])

@@ -7,10 +7,10 @@
 ![logo](img/Logo.png)
 <br>
 
-##  NMHH: Nested Markov Chain Hyper Heuristic <br>[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.10201026.svg)](http://dx.doi.org/10.5281/zenodo.10201026)
+##  INMHH: Improved Nested Markov Chain Hyper Heuristic <br>
 
 A hyperheuristic framework for the continuous domain.
-
+[text](../../../../../../dissertation/finmat/ParallelLBFGS/CMakeLists.txt) [text](../../../../../../dissertation/finmat/ParallelLBFGS/main.cu)
 ###  Requirements:
 
 
@@ -36,8 +36,12 @@ The method was compared with [CUSTOMHyS](https://github.com/jcrvz/customhys) and
 - Schwefel 2.23 $f(x)=\sum \limits_{i=1}^{d}x_i^{10}$
 - Styblinski Tang $f(x)=\frac{1}{2}\sum \limits_{i=1}^{d}x_{i}^4 -16x_{i}^2+5x_{i}$
 - Trid $f(x)=\sum \limits_{i=1}^{d}(x_{i}-1)^2+\sum \limits_{i=2}^{d}(x_i x_{i-1})$
-
-
+- Schwefel26 $f(x)=418.9829d-\sum \limits_{i=1}^{d}(x_i sin(\sqrt{|x_i|}))$
+- Michalewitz $f(x)=-\sum \limits_{i=1}^{d} sin(x_i)sin^{20}(\frac{ix_i^2}{\pi})$
+- Dixon-Price $f(x)=(x_1-1)^2+\sum \limits_{i=2}^{d} i(2x_i^2-x_{i-1})^2$
+- Levy $f(x)=sin^2(\pi \omega_1)+\sum \limits_{i=1}^{d-1} (\omega_i-1)^2\left[ 1+10sin^2(\pi \omega_i+1)\right] +(\omega_d-1)^2\left[ 1+sin^2(2\pi\omega_d)\right] , \omega_i=1+\frac{x_i-1}{4}$
+- SumSquares  $f(x)=\sum \limits_{i=1}^{d} ix_i^2$
+- Sphere  $f(x)=\sum \limits_{i=1}^{d}x_i^2$
 
 
 ### Optimize benchmark functions with:
@@ -47,7 +51,7 @@ Start NMHH benchmarks
 ```shell
 ./NMHHExperiment.sh
 ```
-- the NMHH experiment results will be placed in the [NMHH logs](hhanalysis/logs/SA-NMHH/newExperiment/) 
+- the NMHH experiment results will be placed in the [NMHH logs](hhanalysis/logs/SA-NMHH/GA_DE_GD_LBFGS/newExperiment/) 
 
 #### Results:
 Benchmark results

@@ -2,36 +2,38 @@ from commonAnalysis import *
 ROOT=f"{os.path.dirname(os.path.abspath(__file__))}"
 LOGS_ROOT=f"{ROOT}/../../logs"
 
-SA_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/records.json"
-SCALABILITY_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/scalabilityTests/records.json"
-SA_GA_DE_GD_LBFGS_RECORDS_PATH=f"{LOGS_ROOT}/SA-NMHH/GA_DE_GD_LBFGS/records.json"
-RANDOM_CONTROL_GROUP_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/randomHH/records.json"
-MEALPY_CRO_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/mealpyPerf/CRO/records.json"
-MEALPY_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/mealpyPerf/records.json"
-SAPERTURB_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SAPerturb/records.json"
-SAPERTURBGWO_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SAPerturb/GWO/records.json"
-SAPERTURBMULTIOPERATORS_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SAPerturb/MultiOperators/records.json"
-GA_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/GA/records.json"
-DE_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/DE/records.json"
-RANDOM_GA_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/RANDOM-GA/records.json"
-RANDOM_DE_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/RANDOM-DE/records.json"
-RANDOM_SA_GWO_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SA-NMHH/GWO/records.json"
-SA_CMA_ES_GA_DE_GD_LBFGS_GWO_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SA-CMA-ES-NMHH/GWO/records.json"
-SA_CMA_ES_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SA-CMA-ES-NMHH/records.json"
-BIGSA_CMA_ES_GA_DE_GD_LBFGS_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SA-CMA-ES-NMHH/GA_DE_GD_LBFGS/bigSA/records.json"
-BIGSA_CMA_ES_GA_DE_GD_LBFGS_GWO_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SA-CMA-ES-NMHH/GWO/bigSA/records.json"
-CMA_ES_GA_DE_GD_LBFGS_GWO_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/CMA-ES/GWO/records.json"
-CMA_ES_GA_DE_GD_LBFGS_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/CMA-ES/records.json"
-MADS_NMHH_GA_DE_GD_LBFGS_GWO_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/MADS-NMHH/GA_DE_GD_LBFGS_GWO/records.json"
-MADS_NMHH_GA_DE_GD_LBFGS_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/MADS-NMHH/GA_DE_GD_LBFGS/records.json"                          
-SA_MADS_NMHH_GA_DE_GD_LBFGS_GWO_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SA-MADS-NMHH/GA_DE_GD_LBFGS_GWO/records.json"
-SA_MADS_NMHH_GA_DE_GD_LBFGS_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SA-MADS-NMHH/GA_DE_GD_LBFGS/records.json"
-BIGSA_MADS_NMHH_GA_DE_GD_LBFGS_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SA-MADS-NMHH/GA_DE_GD_LBFGS/bigSA/records.json"
-BIGSA_MADS_NMHH_GA_DE_GD_LBFGS_GWO_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SA-MADS-NMHH/GA_DE_GD_LBFGS_GWO/bigSA/records.json"
-SAREFINE_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SARefine/records.json"
-LBFGS_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/LBFGS/records.json"
-GD_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/GD/records.json"
-CUSTOMHYS2_RESULTS_PATH=f"{LOGS_ROOT}/CustomHYSPerf/results2.json"
+SA_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}"
+SCALABILITY_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/scalabilityTests"
+SA_GA_DE_GD_LBFGS_RECORDS_PATH=f"{LOGS_ROOT}/SA-NMHH/GA_DE_GD_LBFGS"
+RANDOM_CONTROL_GROUP_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/randomHH"
+MEALPY_CRO_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/mealpyPerf/CRO"
+MEALPY_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/mealpyPerf"
+MEALPY_EXPERIMENT_EXTRA_BENCHMARK_RECORDS_PATH=f"{LOGS_ROOT}/mealpyPerf/benchmarks/dim/2_100/pop/30"
+SAPERTURB_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SAPerturb"
+SAPERTURBGWO_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SAPerturb/GWO"
+SAPERTURBMULTIOPERATORS_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SAPerturb/MultiOperators"
+GA_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/GA"
+DE_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/DE"
+RANDOM_GA_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/RANDOM-GA"
+RANDOM_DE_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/RANDOM-DE"
+RANDOM_SA_GWO_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SA-NMHH/GWO"
+SA_CMA_ES_GA_DE_GD_LBFGS_GWO_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SA-CMA-ES-NMHH/GWO"
+SA_CMA_ES_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SA-CMA-ES-NMHH/GA_DE_GD_LBFGS"
+BIGSA_CMA_ES_GA_DE_GD_LBFGS_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SA-CMA-ES-NMHH/GA_DE_GD_LBFGS/bigSA"
+BIGSA_CMA_ES_GA_DE_GD_LBFGS_GWO_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SA-CMA-ES-NMHH/GWO/bigSA"
+CMA_ES_GA_DE_GD_LBFGS_GWO_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/CMA-ES/GWO"
+CMA_ES_GA_DE_GD_LBFGS_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/CMA-ES"
+MADS_NMHH_GA_DE_GD_LBFGS_GWO_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/MADS-NMHH/GA_DE_GD_LBFGS_GWO"
+MADS_NMHH_GA_DE_GD_LBFGS_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/MADS-NMHH/GA_DE_GD_LBFGS"                          
+SA_MADS_NMHH_GA_DE_GD_LBFGS_GWO_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SA-MADS-NMHH/GA_DE_GD_LBFGS_GWO"
+SA_MADS_NMHH_GA_DE_GD_LBFGS_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SA-MADS-NMHH/GA_DE_GD_LBFGS"
+BIGSA_MADS_NMHH_GA_DE_GD_LBFGS_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SA-MADS-NMHH/GA_DE_GD_LBFGS/bigSA"
+BIGSA_MADS_NMHH_GA_DE_GD_LBFGS_GWO_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SA-MADS-NMHH/GA_DE_GD_LBFGS_GWO/bigSA"
+SAREFINE_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/SARefine"
+LBFGS_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/LBFGS"
+GD_EXPERIMENT_RECORDS_PATH=f"{LOGS_ROOT}/GD"
+CUSTOMHYS2_RESULTS_PATH=f"{LOGS_ROOT}/CustomHYSPerf"
+BIGSA_CMA_ES_GA_DE_GD_LBFGS_GWO_CLUSTERING_PATH=f"{LOGS_ROOT}/SA-CMA-ES-NMHH/GWO/bigSA/clustering"
 
 def enrichAndFilterSA(recordsWithMetrics,aggregations,experimentColumns):
     HHView=mergeOn(recordsWithMetrics,aggregations,experimentColumns+["minMedIQR"])
@@ -98,11 +100,11 @@ def filterMetricPropertiesMinMedIQR(metric):
         "hashSHA256":metric["experimentHashSha256"]
     }
 
-
-def minTrialAverage(trials):
+def minTrialAverageAndBest(trials):
     minAvg=float('inf')
     minStd=0
     samples=[]
+    best=float('inf')
     for trial in trials:
         #+np.std(trial['performanceSamples'])
         trialAverage=np.average(trial['performanceSamples'])
@@ -110,6 +112,11 @@ def minTrialAverage(trials):
             minAvg=trialAverage
             minStd=np.std(trial['performanceSamples'])
             samples=trial['performanceSamples']
+            best=np.min(samples)
+    return (minAvg,minStd,samples,best)
+
+def minTrialAverage(trials):
+    (minAvg,minStd,samples,best)=minTrialAverageAndBest(trials)
     return (minAvg,minStd,samples)
 
 def filterMetricPropertiesAverageAndMedIQR(metric):
@@ -122,6 +129,16 @@ def filterMetricPropertiesAverageAndMedIQR(metric):
         "hashSHA256":metric["experimentHashSha256"]
     }
 
+def filterMetricPropertiesAverageAndMedIQRAndBest(metric):
+    (minAvg,minStd,samples,best)=minTrialAverageAndBest(metric['trials'])
+    return {
+        "minMedIQR":metric["minBaseLevelStatistic"],
+        "minAvg":minAvg,
+        "minStd":minStd,
+        "samples":json.dumps(samples),
+        "hashSHA256":metric["experimentHashSha256"],
+        'best':best
+    }
 
 def noMetric(metric):
     return {
@@ -144,6 +161,26 @@ def categoryTransitionMetric(metric):
         "refiner->refiner":metric["bestParameters"]["OptimizerChainRefinerSimplex"]["refiner"]["value"],
         "refiner->selector":metric["bestParameters"]["OptimizerChainRefinerSimplex"]["selector"]["value"],
         "selector->perturb":metric["bestParameters"]["OptimizerChainSelectorSimplex"]["perturbator"]["value"],
+        "GD_ITER":metric["bestParameters"]["RefinerGDOperatorParams"]["GD_FEVALS"]["value"],
+        "LBFGS_ITER":metric["bestParameters"]["RefinerLBFGSOperatorParams"]["LBFGS_FEVALS"]["value"],
+        "minMedIQR":metric["minBaseLevelStatistic"],
+        "hashSHA256":metric["experimentHashSha256"]
+    }
+
+def operatorTransitionMetric(metric):
+    return {
+        "DE->DE":metric["bestParameters"]["PerturbatorDESimplex"]["DE"]["value"],
+        "DE->GA":metric["bestParameters"]["PerturbatorDESimplex"]["GA"]["value"],
+        "GA->DE":metric["bestParameters"]["PerturbatorGASimplex"]["DE"]["value"],
+        "GA->GA":metric["bestParameters"]["PerturbatorGASimplex"]["GA"]["value"],
+        "init->GA":metric["bestParameters"]["PerturbatorInitializerSimplex"]["GA"]["value"],
+        "init->DE":metric["bestParameters"]["PerturbatorInitializerSimplex"]["DE"]["value"],
+        "GD->LBFGS":metric["bestParameters"]["RefinerGDSimplex"]["LBFGS"]["value"],
+        "GD->GD":metric["bestParameters"]["RefinerGDSimplex"]["GD"]["value"],
+        "LBFGS->LBFGS":metric["bestParameters"]["RefinerLBFGSSimplex"]["LBFGS"]["value"],
+        "LBFGS->GD":metric["bestParameters"]["RefinerLBFGSSimplex"]["GD"]["value"],
+        "init->GD":metric["bestParameters"]["RefinerInitializerSimplex"]["GD"]["value"],
+        "init->LBFGS":metric["bestParameters"]["RefinerInitializerSimplex"]["LBFGS"]["value"],
         "GD_ITER":metric["bestParameters"]["RefinerGDOperatorParams"]["GD_FEVALS"]["value"],
         "LBFGS_ITER":metric["bestParameters"]["RefinerLBFGSOperatorParams"]["LBFGS_FEVALS"]["value"],
         "minMedIQR":metric["minBaseLevelStatistic"],

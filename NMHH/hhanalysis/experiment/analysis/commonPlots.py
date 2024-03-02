@@ -39,7 +39,7 @@ def plot_series(series_of_series_of_data_series, series_of_titles,x_label='X-axi
             
             # Add labels and title
             ax.set_xlabel(x_label,fontproperties=prop)
-            ax.set_ylabel(y_label,fontproperties=prop,size=12)
+            ax.set_ylabel(f' best fitness ({scales[i]} scale)',fontproperties=prop,size=12)
             ax.set_title(series_of_titles[i][j],fontproperties=prop,size=14)
             
             # Add a legend
@@ -93,7 +93,7 @@ def plotWilcoxRanksums(df,rows,columns,labels,filename,figsize=(10,10),blockPlot
     if blockPlot:
         plt.show()
 
-def plotHeatmap(Ps,rows,columns,xticks,yticks,titles,xlabelTitles,ylabelTitles,figuretitles,width_ratios,height_ratios,subfigdim,figsize=(10,10),filename=None):
+def plotHeatmap(Ps,rows,columns,xticks,yticks,titles,xlabelTitles,ylabelTitles,figuretitles,width_ratios,height_ratios,subfigdim,figsize=(10,10),filename=None,color="Greens"):
     prop = fm.FontProperties(fname=f'{ROOT}/plots/fonts/times-ro.ttf')
     fig = plt.figure(figsize=figsize, constrained_layout=True)
     subfigs = fig.subfigures(subfigdim[0],subfigdim[1],wspace=0.05 )
@@ -103,7 +103,7 @@ def plotHeatmap(Ps,rows,columns,xticks,yticks,titles,xlabelTitles,ylabelTitles,f
             axs=subfig.subplots(1, subplotsInFig,gridspec_kw={"width_ratios":width_ratios,"height_ratios":height_ratios,'wspace': 0.0})
             # fig, axs = plt.subplots(rows, columns, figsize=figsize,)
             for i, ax in enumerate(axs):
-                    im = ax.imshow(np.array(Ps[k][2*l+i]), cmap='Greens',vmin=0,vmax=1)
+                    im = ax.imshow(np.array(Ps[k][2*l+i]), cmap=color,vmin=0,vmax=1)
                     ax.set_xticks(np.arange(Ps[k][2*l+i].shape[1]))
                     ax.set_yticks(np.arange(Ps[k][2*l+i].shape[0]))
                     ax.set_xticklabels(xticks[k][2*l+i],fontproperties=prop)
@@ -132,7 +132,7 @@ def plotMethodsComparison(categories,subcategories,thevalues,xlabel,ylabel,title
     values=np.array(thevalues)
     # Determine the number of subcategories
     num_subcategories = len(subcategories)
-    bar_width = 0.1  # Width of each bar
+    bar_width = 0.05  # Width of each bar
 
     # Calculate the positions of the bars on the x-axis
     positions = np.arange(len(categories))
@@ -192,7 +192,7 @@ def fillStepsMinValue(steps,til):
 def createMethodsCostEvolutionPlots(methodPathsAndIds,
                                     experimentProblemsAndScales,
                                     performanceMapping,
-                                    experimentFilter=[],filename=None,figuresize=(16/3,3)):
+                                    experimentFilter=[],filename=None,figuresize=(16/3,3),seriesLimit=100):
     allperformances=[]
     alltitles=[]
     allscales=[]
@@ -239,10 +239,39 @@ def createMethodsCostEvolutionPlots(methodPathsAndIds,
         performances=[]
         titles=[]
         for index,row in series.iterrows():
-                performances.append([(range(0, len(row[optimizer])),row[optimizer], optimizer) for optimizer in optimizersList ])
-                titles.append(f"{problem.replace('.json','').capitalize()}-{int(row['dimension'])}")
+                performances.append([(range(0, len(row[optimizer][0:seriesLimit])),row[optimizer][0:seriesLimit], optimizer) for optimizer in optimizersList ])
+                titles.append(f"{problem.replace('.json','').replace('styblinskitang','Styblinski Tang').capitalize()}-{int(row['dimension'])}")
         allperformances.append(performances)
         alltitles.append(titles)
         allscales.append(scale)
-    plot_series(allperformances, alltitles, x_label='steps', y_label=' best fitness',scales=allscales,
+    plot_series(allperformances, alltitles, x_label='steps',scales=allscales,
                     file_name=filename,figsize=figuresize)
+
+def plot_optimizer_scores(optimizer_scores, colorfunction, labelfunction):
+    num_plots = len(optimizer_scores)
+    number_of_cols_per_page=3
+    num_rows_per_page = 2
+    num_rows = num_plots // number_of_cols_per_page + (num_plots % number_of_cols_per_page > 0)  # Calculate total number of rows
+    num_pages = num_rows // num_rows_per_page + (num_rows % num_rows_per_page > 0)  # Calculate total number of pages
+
+    for page in range(num_pages):
+        start_row = page * num_rows_per_page
+        end_row = min((page + 1) * num_rows_per_page, num_rows)
+        fig, axes = plt.subplots(end_row - start_row, number_of_cols_per_page, figsize=(15, 5*(end_row - start_row)))
+
+        for i, (dimension, scores) in enumerate(list(optimizer_scores.items())[start_row*number_of_cols_per_page:end_row*number_of_cols_per_page]):
+            row = i // number_of_cols_per_page
+            col = i % number_of_cols_per_page
+            ax = axes[row, col] if end_row - start_row > 1 else axes[col]
+            
+            # Sort scores in decreasing order
+            sorted_scores = dict(sorted(scores.items(), key=lambda x: x[1], reverse=True))
+            labels=[labelfunction(label) for label in sorted_scores.keys()]
+            colors=[colorfunction(label) for label in labels]
+            ax.bar(sorted_scores.keys(), sorted_scores.values(),color=colors)
+            ax.set_title(f'Dimension {dimension} Scores')
+            ax.tick_params(axis='x', rotation=90)  # Rotate x-axis labels by 90 degrees
+            ax.set_xticklabels(labels)  # Remove specified text
+
+        plt.tight_layout()
+        plt.show()
